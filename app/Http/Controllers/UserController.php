@@ -12,6 +12,16 @@ class UserController extends Controller
     // use Notifiable;
 
     /**
+     * Función que mostrará una lista de todos los usuarios registrados en la aplicación
+     * en la cuál se podrá edit o eliminar el usuario.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function index() {
+        return view('usuarios.index');
+    }
+
+    /**
      * Muestra la lista de usuarios ordenados por partidas ganadas.
      *
      * @return \Illuminate\View\View

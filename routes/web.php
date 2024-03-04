@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CartaController;
 use App\Http\Controllers\EventoController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -45,7 +46,7 @@ Route::get('/rankings', [UserController::class, 'list'])->name('rankings');
 Route::post('/search_user', [UserController::class, 'search_user'])->name('search_user');
 
 // Ruta para mostrar el perfil del usuario
-Route::get('/perfil', [UserController::class, 'perfil'])->name('perfil');
+Route::get('/perfil', [UserController::class, 'perfil'])->middleware('auth')->name('perfil');
 
 // Ruta para actualizar el nombre de usuario
 Route::put('/usuarios/{usuario}/actualizar-nombre', [UserController::class, 'updateName'])->name('usuarios.actualizar-nombre');
@@ -55,3 +56,9 @@ Route::put('/usuarios/{usuario}/actualizar-correo', [UserController::class, 'upd
 
 // Ruta para eliminar un usuario
 Route::delete('/usuarios/{usuario}/eliminar-cuenta', [UserController::class, 'eliminarCuenta'])->name('eliminar-cuenta');
+
+// Ruta para listar todas las cartas
+Route::get('/cartas', [CartaController::class, 'index'])->name('cartas');
+
+// Ruta para listar todos los usuarios solamente, accesible para usuarios autorizados y con rol admin
+Route::get('/usuarios', [UserController::class, 'index'])->middleware(['auth', 'role:admin'])->name('usuarios');

@@ -18,6 +18,14 @@
                 <li class="nav-item">
                     <a class="nav-link text-white" href="{{ route('rankings') }}">{{ __('Ranking') }}</a>
                 </li>
+                @role('admin')
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="{{ route('usuarios') }}">{{ __('Usuarios') }}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="{{ route('cartas') }}">{{ __('Cartas') }}</a>
+                    </li>
+                @endrole
             </ul>
 
             <!-- Right Side Of Navbar -->

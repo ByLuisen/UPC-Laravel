@@ -78,7 +78,7 @@ class EventoController extends Controller
         $request->validate([
             'nombre' => ['required', 'string', 'max:40'],
             'tipo' => ['required', 'string'],
-            'fecha_inicio' => ['required', 'date'],
+            'fecha_inicio' => ['required', 'date_format:d/m/Y\ H:i'],
             'duracion' => ['required', 'string'],
         ]);
 
@@ -86,10 +86,7 @@ class EventoController extends Controller
         $evento = new Evento();
         $evento->nombre = $request->nombre;
         $evento->tipo = $request->tipo;
-
-        // Convierte la fecha de inicio al formato deseado
-        $fecha_inicio = Carbon::parse($request->fecha_inicio)->format('d/m/Y H:i');
-        $evento->fecha_inicio = $fecha_inicio;
+        $evento->fecha_inicio = $request->fecha_inicio;
         $evento->duracion = $request->duracion;
 
         // Guarda el evento en la base de datos
@@ -127,24 +124,21 @@ class EventoController extends Controller
         $request->validate([
             'nombre' => ['required', 'string', 'max:40'],
             'tipo' => ['required', 'string'],
-            'fecha_inicio' => ['required', 'date'],
+            'fecha_inicio' => ['required', 'date_format:d/m/Y\ H:i'],
             'duracion' => ['required', 'string'],
         ]);
 
         // Actualiza el evento con los datos del formulario
         $evento->nombre = $request->nombre;
         $evento->tipo = $request->tipo;
-
-        // Convierte la fecha de inicio al formato deseado
-        $fecha_inicio = Carbon::parse($request->fecha_inicio)->format('d/m/Y H:i');
-        $evento->fecha_inicio = $fecha_inicio;
+        $evento->fecha_inicio = $request->fecha_inicio;
         $evento->duracion = $request->duracion;
 
         // Guarda los cambios en el evento
         $evento->update();
 
         // Redirecciona después de actualizar el evento
-        return redirect()->route('mis_eventos');
+        return redirect()->route('eventos');
     }
 
     /**

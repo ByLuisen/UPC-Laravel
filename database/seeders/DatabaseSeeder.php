@@ -16,8 +16,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        Partida::factory(10)->create(); // Crea 10 registros de Partida utilizando el factory y los guarda en la base de datos
+        $this->call(RoleSeeder::class);
+        $this->call(AdminSeeder::class);
         User::factory(10)->create(); // Crea 10 registros de User utilizando el factory y los guarda en la base de datos
+        Partida::factory(10)->create(); // Crea 10 registros de Partida utilizando el factory y los guarda en la base de datos
         Carta::factory(10)->create(); // Crea 10 registros de Carta utilizando el factory y los guarda en la base de datos
         Evento::factory(10)->create(); // Crea 10 registros de Evento utilizando el factory y los guarda en la base de datos
         EventoUser::factory(10)->create(); // Crea 10 registros de EventoUser utilizando el factory y los guarda en la base de datos
