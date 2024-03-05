@@ -5,6 +5,8 @@ use App\Http\Controllers\EventoController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\MemberController;
+use App\Http\Controllers\WelcomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,10 +23,7 @@ use App\Http\Controllers\UserController;
 Auth::routes();
 
 // Ruta de la página de inicio
-Route::get('/', function () {
-    $datos = range(0, 29); // Genera un array del 0 al 29
-    return view('welcome', ['datos' => $datos]);
-})->name('index');
+Route::get('/', [WelcomeController::class, 'index'])->name('index');
 
 // Ruta para mostrar los eventos del usuario autenticado
 Route::get('/mis_eventos', [EventoController::class, 'mis_eventos'])->name('mis_eventos');
@@ -59,6 +58,33 @@ Route::delete('/usuarios/{usuario}/eliminar-cuenta', [UserController::class, 'el
 
 // Ruta para listar todas las cartas
 Route::get('/cartas', [CartaController::class, 'index'])->name('cartas');
+// Ruta para acceder al formulario de crear cartas
+Route::get('/crea_carta_form', [CartaController::class, 'crear_carta_form'])->name('carta.crear_form');
+// Ruta para añadir la carta a la bbdd
+Route::post('/crear_carta', [CartaController::class, 'crear_carta'])->name('carta.crear');
+// Ruta para editar la carta seleccionada
+Route::get('/carta/{carta}/edit', [CartaController::class, 'edit'])->name('carta.edit');
+// Ruta para actualizar un evento
+Route::post('/carta/{carta}/edit', [CartaController::class, 'actualizar_carta'])->name('carta.actualizar');
+// Ruta para eliminar una carta
+Route::delete('/carta/{carta}/delete', [CartaController::class, 'eliminar_carta'])->name('carta.eliminar');
+
+
 
 // Ruta para listar todos los usuarios solamente, accesible para usuarios autorizados y con rol admin
-Route::get('/usuarios', [UserController::class, 'index'])->middleware(['auth', 'role:admin'])->name('usuarios');
+Route::get('/usuarios', [UserController::class, 'list_users'])->middleware(['auth', 'role:admin'])->name('usuarios');
+// Ruta para eliminar los usuarios solamente, accesible para usuarios autorizados y con rol admin
+Route::delete('/usuarios/{usuario}/eliminar-usuario', [UserController::class, 'eliminarUsuario'])->middleware(['auth', 'role:admin'])->name('eliminar-usuario');
+// Ruta para editar los usuarios solamente, accesible para usuarios autorizados y con rol admin
+Route::put('/usuarios/{usuario}/actualizar-usuario', [UserController::class, 'actualizarUsuario'])->middleware(['auth', 'role:admin'])->name('actualizar-usuario');
+// Ruta para buscar usuarios, accesible para usuarios autorizados y conrol admin
+Route::post('/buscar_usuario', [UserController::class, 'buscar_usuario'])->middleware(['auth', 'role:admin'])->name('buscar_usuario');
+
+
+// Ruta para listar todos los miembros solamente, accesible para usuarios autorizados y con rol admin
+Route::get('/miembros', [MemberController::class, 'list'])->middleware(['auth', 'role:admin'])->name('miembros');
+// Ruta para eliminar los miembros solamente, accesible para usuarios autorizados y con rol admin
+Route::delete('/miembros/{miembro}/eliminar-miembro', [MemberController::class, 'eliminarMiembro'])->middleware(['auth', 'role:admin'])->name('eliminar-miembro');
+// Ruta para editar los miembros solamente, accesible para usuarios autorizados y con rol admin
+Route::put('/miembros/{miembro}/actualizar-miembro', [MemberController::class, 'actualizarMiembro'])->middleware(['auth', 'role:admin'])->name('actualizar-miembro');
+

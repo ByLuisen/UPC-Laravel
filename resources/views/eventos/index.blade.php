@@ -9,16 +9,15 @@
         <div class="row m-0 justify-content-between">
             <div class="d-flex justify-content-center">
                 <div class="col-9 eventos me-5">
-                    <h1>
-                        EVENTOS
-                    </h1>
+                    <h1>EVENTOS</h1>
                     <div class="d-flex flex-wrap">
 
                         @foreach ($eventos as $evento)
                             <div class="evento-container col-4 p-3 position-relative">
                                 <div class="rounded-5 p-4"
                                     style="background-image: url('{{ asset('images/' . $evento['tipo'] . '.webp') }}'); background-size: cover;
-                        background-position: 50% 50%; opacity: 0.9; min-height: 236px" rel="preload">
+                        background-position: 50% 50%; opacity: 0.9; min-height: 236px"
+                                    rel="preload">
                                     <div class="row">
                                         <div class="col">
                                             <h2 class="text-white"

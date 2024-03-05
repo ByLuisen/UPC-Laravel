@@ -25,6 +25,9 @@
                     <li class="nav-item">
                         <a class="nav-link text-white" href="{{ route('cartas') }}">{{ __('Cartas') }}</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="{{ route('miembros') }}">{{ __('Miembros') }}</a>
+                    </li>
                 @endrole
             </ul>
 

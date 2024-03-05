@@ -76,6 +76,7 @@
     <script src="https://npmcdn.com/flatpickr/dist/l10n/es.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+
             // Configura el datepicker para el campo fecha_inicio
             const fechaInicioInput = document.getElementById('fecha_inicio');
             flatpickr(fechaInicioInput, {
