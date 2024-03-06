@@ -9,7 +9,19 @@
         <div class="row m-0 justify-content-between">
             <div class="d-flex justify-content-center">
                 <div class="col-9 eventos me-5">
-                    <h1>EVENTOS</h1>
+                    <div class="row d-flex">
+                        <div class="col-3">
+                            <h1>EVENTOS</h1>
+                        </div>
+                        <div class="col-5 p-3">
+                            @if (session('error'))
+                                <div class="alert alert-danger" role="alert">
+                                    {{ session('error') }}
+                                </div>
+                            @endif
+                        </div>
+                    </div>
+
                     <div class="d-flex flex-wrap">
 
                         @foreach ($eventos as $evento)
@@ -84,10 +96,14 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row justify-content-end mt-4">
+                                    <form class="row justify-content-end mt-4"
+                                        action="{{ route('eventos_inscribirse', $evento['id']) }}" method="post">
+                                        @csrf
+                                        @method('POST')
                                         <button
-                                            class="btn-hover color-6 col-4 btn rounded-pill text-white fw-bold btn-success">Inscribirse</button>
-                                    </div>
+                                            class="btn-hover color-6 col-4 btn rounded-pill text-white fw-bold btn-success"
+                                            type="submit">Inscribirse</button>
+                                    </form>
                                     @role('admin')
                                         <div class="overlay d-flex d-none position-absolute top-0 start-0 w-100 h-100 align-items-center justify-content-center rounded-5"
                                             style="background-color: rgba(126, 126, 126, 0.5);">
@@ -133,6 +149,9 @@
                     <a href="{{ route('mis_eventos') }}" style="text-decoration: none; color: inherit;">
                         <h2>MIS
                             EVENTOS</h2>
+                    </a>
+                    <a href="{{ route('eventos_inscritos') }}" style="text-decoration: none; color: inherit;">
+                        <h2>EVENTOS INSCRITOS</h2>
                     </a>
                 </div>
             </div>

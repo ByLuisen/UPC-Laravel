@@ -34,6 +34,7 @@ class MemberSeeder extends Seeder
             'dribbble' => 'https://dribbble.com/',
         ]);
         Member::create([
+
             'name' => 'Ivan Pascuas',
             'role' => 'Game Developer',
             'desc' => 'Su habilidad para fusionar elementos visuales proporciona a los jugadores una experiencia inmersiva única.',

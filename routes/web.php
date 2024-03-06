@@ -27,6 +27,9 @@ Route::get('/', [WelcomeController::class, 'index'])->name('index');
 
 // Ruta para mostrar los eventos del usuario autenticado
 Route::get('/mis_eventos', [EventoController::class, 'mis_eventos'])->name('mis_eventos');
+
+Route::get('/eventos_inscritos', [EventoController::class, 'eventos_inscritos'])->name('eventos_inscritos');
+
 // Ruta para mostrar todos los eventos y crear nuevos eventos
 Route::get('/eventos', [EventoController::class, 'index'])->name('eventos');
 // Ruta para mostrar el formulario de creación de eventos
@@ -35,14 +38,19 @@ Route::get('/crear_evento_form', [EventoController::class, 'crear_evento_form'])
 Route::post('/crear_evento', [EventoController::class, 'crear_evento'])->name('crear_evento');
 // Ruta para eliminar un evento existente
 Route::delete('/eventos/{evento}/delete', [EventoController::class, 'destroy'])->name('eventos.destroy');
+// Ruta para desuscribirse eventos
+Route::delete('/eventos/{evento}/desuscribirse', [EventoController::class, 'desuscribirse'])->name('eventos.desuscribirse');
+// Ruta para inscribirse a eventos
+Route::post('/eventos/{evento}/inscribirse', [EventoController::class, 'inscribirse'])->name('eventos_inscribirse');
 // Ruta para editar un evento existente
 Route::get('/eventos/{evento}/edit', [EventoController::class, 'edit'])->name('eventos.edit');
 // Ruta para actualizar un evento existente
 Route::post('/eventos/{evento}/edit', [EventoController::class, 'actualizar_evento'])->name('eventos.actualizar');
 
+
 // Rutas para manejar los rankings
 Route::get('/rankings', [UserController::class, 'list'])->name('rankings');
-Route::post('/search_user', [UserController::class, 'search_user'])->name('search_user');
+Route::post('/rankings', [UserController::class, 'search_user'])->name('search_user');
 
 // Ruta para mostrar el perfil del usuario
 Route::get('/perfil', [UserController::class, 'perfil'])->middleware('auth')->name('perfil');
@@ -78,7 +86,7 @@ Route::delete('/usuarios/{usuario}/eliminar-usuario', [UserController::class, 'e
 // Ruta para editar los usuarios solamente, accesible para usuarios autorizados y con rol admin
 Route::put('/usuarios/{usuario}/actualizar-usuario', [UserController::class, 'actualizarUsuario'])->middleware(['auth', 'role:admin'])->name('actualizar-usuario');
 // Ruta para buscar usuarios, accesible para usuarios autorizados y conrol admin
-Route::post('/buscar_usuario', [UserController::class, 'buscar_usuario'])->middleware(['auth', 'role:admin'])->name('buscar_usuario');
+Route::post('/usuarios', [UserController::class, 'buscar_usuario'])->middleware(['auth', 'role:admin'])->name('buscar_usuario');
 
 
 // Ruta para listar todos los miembros solamente, accesible para usuarios autorizados y con rol admin
